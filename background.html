@@ -84,9 +84,16 @@
         document.querySelectorAll(".banner .btns span").forEach((el, idx) => {
             el.addEventListener('click', function () {
                 //클릭해야지만 실행되는 식
-                clearInterval(autobackground); //자동롤링 멈춰줘              
-                document.querySelector("#banner").style.backgroundImage = `url(img/banner_${idx}.jpg)`; // 배경이미지 변경
-                el.classList = "act"; // 클릭한 span태그에 act 줘라
+                clearInterval(autobackground); //자동롤링 멈춰줘  
+                count = idx; //타켓번호에 클릭된 버튼의 번호를 넣어주고
+                document.querySelectorAll(".banner .btns span").forEach((eel, iidx) => {
+                    eel.classList = ''
+                })
+                //일단 모든 버튼들에게 클래스 삭제하고
+                document.querySelectorAll(".banner .btns span")[count].classList = "act";
+                //한마리만 act주고
+                document.querySelector("#banner").style.backgroundImage = `url(img/banner_${count}.jpg)`;
+                //그번호의 배경으로 고치기
             })
         })
     </script>
