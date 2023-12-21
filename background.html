@@ -55,7 +55,7 @@
 
     </section>
     <script>
-
+        ///////////////화면 열자마자 출력되는 1회작업이라 함수할 필요없음////////////////////
         let count = 0;
         const contentnum = 6;
 
@@ -64,38 +64,38 @@
             btntag += "<span>" + i + "</span>";
         }
         document.querySelector(".banner .btns").innerHTML = btntag;
-        document.querySelectorAll(".banner .btns span")[count].classList = "act";
+        //////////////////////////////////////////////////////////////////////////
+
+
         const autocolor = () => {
             count++;
             count %= contentnum;
-            document.querySelector("#banner").style.backgroundImage = `url(img/banner_${count}.jpg)`;
+            btnact(count); //count번호 버튼만 활성화하기
+        }
 
+        let autobackground = setInterval(function () { autocolor(); }, 1000);
+
+        document.querySelectorAll(".banner .btns span").forEach((el, idx) => {
+            //버튼이 여러개라 각각에 명령을 넣어야 하므로 forEach메서드에 담아서 실행한다.
+            el.addEventListener('click', function () {
+                clearInterval(autobackground); //자동롤링 멈춤
+                count = idx; // 클릭한 버튼의 idx를 count에 바꾸고 
+                btnact(count); // 배경과 버튼처리              
+            })
+        })
+
+        function btnact(c) {
+            //하나만 act주고 나머지 act 삭제하는 함수
+            //버튼과 이미지작업은 동시 진행되어야 하므로 하나의 함수로 묶는다.
+            document.querySelector("#banner").style.backgroundImage = `url(img/banner_${c}.jpg)`;
             document.querySelectorAll(".banner .btns span").forEach((el, idx) => {
-                if (count === idx) {
+                if (c === idx) {
                     el.classList = 'act'
                 } else {
                     el.classList = ''
                 }
             })
         }
-        let autobackground = setInterval(function () { autocolor(); }, 1000);
-        // let 으로 선언하기
-
-        document.querySelectorAll(".banner .btns span").forEach((el, idx) => {
-            el.addEventListener('click', function () {
-                //클릭해야지만 실행되는 식
-                clearInterval(autobackground); //자동롤링 멈춰줘  
-                count = idx; //타켓번호에 클릭된 버튼의 번호를 넣어주고
-                document.querySelectorAll(".banner .btns span").forEach((eel, iidx) => {
-                    eel.classList = ''
-                })
-                //일단 모든 버튼들에게 클래스 삭제하고
-                document.querySelectorAll(".banner .btns span")[count].classList = "act";
-                //한마리만 act주고
-                document.querySelector("#banner").style.backgroundImage = `url(img/banner_${count}.jpg)`;
-                //그번호의 배경으로 고치기
-            })
-        })
     </script>
 </body>
 
