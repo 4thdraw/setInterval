@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주기적인 처리 / window 시간차마다 실행하기</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .red {
+            background-color: red;
+        }
+
+        .yellow {
+            background-color: yellow;
+        }
+
+        .blue {
+            background-color: blue;
+        }
+
+        #banner {
+            height: 0;
+            padding-top: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <p>나는 첫화면 관계없다.( 스타일 / 태그 )</p>
+    <div id="banner" class="banner red"></div>
+    <script>
+        const colorarr = ['red', 'blue', 'yellow'];
+        let count = 0;
+        //setInterval(함수, 시간)
+        const autocolor = () => {
+            count++;
+            count %= 3;
+            document.querySelector("#banner").classList = 'banner ' + colorarr[count];
+        }
+        setInterval(function () { autocolor(); }, 1000)
+    </script>
+</body>
+
+</html>
