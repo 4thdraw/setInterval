@@ -83,8 +83,10 @@
 
         document.querySelectorAll(".banner .btns span").forEach((el, idx) => {
             el.addEventListener('click', function () {
-                clearInterval(autobackground); //자동롤링 멈춰줘
-                alert(idx); // 클릭당한 버튼이 각각의 idx를 인식하고 있음을 확인한다.
+                //클릭해야지만 실행되는 식
+                clearInterval(autobackground); //자동롤링 멈춰줘              
+                document.querySelector("#banner").style.backgroundImage = `url(img/banner_${idx}.jpg)`; // 배경이미지 변경
+                el.classList = "act"; // 클릭한 span태그에 act 줘라
             })
         })
     </script>
