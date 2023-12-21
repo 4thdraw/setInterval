@@ -56,23 +56,28 @@
     </section>
     <script>
 
-        let count = 0; //타겟시작번호 값이 변경될 것이므로 반드시 let으로 선언할 것
+        let count = 0;
+        const contentnum = 6;
 
-        const contentnum = 6; // 배경이미지의 개수
+        let btntag = ""; //버튼을 누적시킬 변수를 선언 한다. 중요!! 변수선언은 let
+        for (i = 0; i < contentnum; i++) {
+            btntag += "<span>" + i + "</span>";
+            //배경이미지소스만큼 span태그를 누적시킨다.
+        }
+        document.querySelector(".banner .btns").innerHTML = btntag;
+        //버튼을 출력한다.
+
+        // 모두 같은 결과
+        // document.querySelector(".banner .btns span").classList = "act";
+        // document.querySelectorAll(".banner .btns span")[0].classList = "act";
+        document.querySelectorAll(".banner .btns span")[count].classList = "act";
+        // querySelectorAll과 querySelector 차이를 반드시 이해해야함
+
 
         const autocolor = () => {
-            // 화살표 함수는 선언함수보다 가볍고 변수에 저장해서 쓰므로 선언위치가 상당히 중요하다.
-            // 함수이름은 중복으로 쓰면 안되므로 const로 선언해서 씀
-
             count++;
             count %= contentnum;
-            // 너머지를 구해서 반환하는 식 
-            // 해당숫자보다 0 ~ 해당숫자 -1 까지 반환됨
-
             document.querySelector("#banner").style.backgroundImage = `url(img/banner_${count}.jpg)`;
-            //아이디 배너태그의 style속성으로 접근, 그 style속성의 backgroundImage변수에 접근해서
-            //값을 변경한다.
-
         }
         setInterval(function () { autocolor(); }, 1000);
     </script>
