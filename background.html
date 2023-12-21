@@ -59,25 +59,25 @@
         let count = 0;
         const contentnum = 6;
 
-        let btntag = ""; //버튼을 누적시킬 변수를 선언 한다. 중요!! 변수선언은 let
+        let btntag = "";
         for (i = 0; i < contentnum; i++) {
             btntag += "<span>" + i + "</span>";
-            //배경이미지소스만큼 span태그를 누적시킨다.
         }
         document.querySelector(".banner .btns").innerHTML = btntag;
-        //버튼을 출력한다.
-
-        // 모두 같은 결과
-        // document.querySelector(".banner .btns span").classList = "act";
-        // document.querySelectorAll(".banner .btns span")[0].classList = "act";
         document.querySelectorAll(".banner .btns span")[count].classList = "act";
-        // querySelectorAll과 querySelector 차이를 반드시 이해해야함
-
-
         const autocolor = () => {
             count++;
             count %= contentnum;
             document.querySelector("#banner").style.backgroundImage = `url(img/banner_${count}.jpg)`;
+
+            document.querySelectorAll(".banner .btns span").forEach((el, idx) => {
+                if (count === idx) { // span마다 개별인식되는 idx, count번호과 같은 span태그 찾아내는 중
+                    el.classList = 'act' // 하나만 act클래스 준다.
+                } else {
+                    el.classList = ''  // 나머지 span들은 클래스 주지마라
+                }
+
+            })
         }
         setInterval(function () { autocolor(); }, 1000);
     </script>
