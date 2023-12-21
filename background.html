@@ -71,15 +71,22 @@
             document.querySelector("#banner").style.backgroundImage = `url(img/banner_${count}.jpg)`;
 
             document.querySelectorAll(".banner .btns span").forEach((el, idx) => {
-                if (count === idx) { // span마다 개별인식되는 idx, count번호과 같은 span태그 찾아내는 중
-                    el.classList = 'act' // 하나만 act클래스 준다.
+                if (count === idx) {
+                    el.classList = 'act'
                 } else {
-                    el.classList = ''  // 나머지 span들은 클래스 주지마라
+                    el.classList = ''
                 }
-
             })
         }
-        setInterval(function () { autocolor(); }, 1000);
+        let autobackground = setInterval(function () { autocolor(); }, 1000);
+        // let 으로 선언하기
+
+        document.querySelectorAll(".banner .btns span").forEach((el, idx) => {
+            el.addEventListener('click', function () {
+                clearInterval(autobackground); //자동롤링 멈춰줘
+                alert(idx); // 클릭당한 버튼이 각각의 idx를 인식하고 있음을 확인한다.
+            })
+        })
     </script>
 </body>
 
