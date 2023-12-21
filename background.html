@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주기적인 처리 / window 시간차마다 실행하기</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #banner {
+            height: 0;
+            padding-top: 50%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            transition: 0.5s;
+        }
+
+        .banner .btns {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .banner .btns span {
+            display: inline-block;
+            width: 0.8rem;
+            height: 0.8rem;
+            border-radius: 50%;
+            border: 2px solid red;
+            font-size: 0;
+            line-height: 0;
+            margin: 0 1rem;
+        }
+
+        .banner .btns span.act {
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="banner">
+        <div id="banner" class="banner red cc bbb " style="background-image: url(img/banner_0.jpg);">
+            <!-- setInterval은 처음 화면 랜딩시 아무것도 해주지 않는다
+               첫번째 실행코드는 html태그와 스타일에서 처리해줘야 한다.
+              style="background-image: url(img/banner_0.jpg);"을 넣은 이유임 -->
+        </div>
+        <div class="btns">
+            <!-- 추후 버튼을 innerHTML로 삽입할 부모태그 -->
+        </div>
+
+    </section>
+    <script>
+
+        let count = 0; //타겟시작번호 값이 변경될 것이므로 반드시 let으로 선언할 것
+
+        const contentnum = 6; // 배경이미지의 개수
+
+        const autocolor = () => {
+            // 화살표 함수는 선언함수보다 가볍고 변수에 저장해서 쓰므로 선언위치가 상당히 중요하다.
+            // 함수이름은 중복으로 쓰면 안되므로 const로 선언해서 씀
+
+            count++;
+            count %= contentnum;
+            // 너머지를 구해서 반환하는 식 
+            // 해당숫자보다 0 ~ 해당숫자 -1 까지 반환됨
+
+            document.querySelector("#banner").style.backgroundImage = `url(img/banner_${count}.jpg)`;
+            //아이디 배너태그의 style속성으로 접근, 그 style속성의 backgroundImage변수에 접근해서
+            //값을 변경한다.
+
+        }
+        setInterval(function () { autocolor(); }, 1000);
+    </script>
+</body>
+
+</html>
