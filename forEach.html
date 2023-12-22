@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>forEach 태그준비</title>
+</head>
+
+<body>
+    <h1></h1>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <script>
+        const naivinfo = ["네이버", "다음", "구글", , , , "아마존", "쿠팡"];
+        // const h1date = `네비 어레이의 데이터가 ${naviinfo.length}개 있습니다.`;
+        let litags = "";
+        // document.querySelectorAll('ul li').forEach((el, idx) => {
+        //     el.innerHTML = idx
+        // })
+        // for (i = 0; i < 5; i++) {
+        //     document.querySelectorAll("ul li")[i].innerHTML = i
+        // }
+        // for (x in naivinfo) {
+        //     litags += "<li>" + naivinfo[x] + "</li>"
+        // }
+        naivinfo.map((el, idx) => {
+            //   if (el[3]) {
+            //     litags +="";
+            //   }else{
+            //     litags += "<li>" + el + "</li>"
+            //   }
+            // if (el !== "아마존") {
+            //     litags += `<li>${el}</li>`;
+            // }
+            if (idx != 3) litags += "<li>" + el + "</li>"
+        })
+
+        document.querySelector('ul').innerHTML = litags;
+
+        const lis = document.querySelectorAll('ul li').length;
+
+        document.querySelector('h1').innerHTML = lis > 0 ? lis + "건이 검색되었습니다." : null;
+
+
+
+
+    </script>
+</body>
+
+</html>

@@ -11,38 +11,109 @@
             padding: 0;
         }
 
-        .red {
-            background-color: red;
-        }
-
-        .yellow {
-            background-color: yellow;
-        }
-
-        .blue {
-            background-color: blue;
-        }
-
         #banner {
             height: 0;
             padding-top: 50%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            transition: 0.5s;
+        }
+
+        .banner .btns {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .banner .btns span {
+            display: inline-block;
+            width: 0.8rem;
+            height: 0.8rem;
+            border-radius: 50%;
+            border: 2px solid red;
+            font-size: 0;
+            line-height: 0;
+            margin: 0 1rem;
+        }
+
+        .banner .btns span.act {
+            background-color: red;
         }
     </style>
 </head>
 
 <body>
-    <p>나는 첫화면 관계없다.( 스타일 / 태그 )</p>
-    <div id="banner" class="banner red"></div>
+    <section class="banner">
+        <div id="banner" class="banner">
+        </div>
+        <div class="btns">
+        </div>
+        <div id="stopplay" onclick="toggle()">stop</div>
+    </section>
     <script>
-        const colorarr = ['red', 'blue', 'yellow'];
-        let count = 0;
-        //setInterval(함수, 시간)
-        const autocolor = () => {
-            count++;
-            count %= 3;
-            document.querySelector("#banner").classList = 'banner ' + colorarr[count];
+        let count = 0; // 배경과 버튼활성화버튼 번호
+        const contentnum = 6; //전체개수
+        let status = true; // stop출력
+        let toggletext = "stop"
+
+        const toggle = () => {
+            if (status) {
+                toggletext = "stop";
+                status = false;
+                clearInterval(autobackground);
+            } else {
+                toggletext = "play";
+                status = true;
+                autobackground = setInterval(function () {
+                    count++;
+                    count %= contentnum;
+                    btnact(count);
+                }, 2000);
+            }
+            document.getElementById("stopplay").innerHTML = toggletext;
         }
-        setInterval(function () { autocolor(); }, 1000)
+
+        //화면 열리면 딱 1번하는 실행식 -> 버튼만들기
+        let btntag = "";
+        for (i = 0; i < contentnum; i++) {
+            btntag += "<span>" + i + "</span>";
+        }
+        document.querySelector(".banner .btns").innerHTML = btntag;
+
+        btnact(count);
+
+        let autobackground = setInterval(function () {
+            count++;
+            count %= contentnum;
+            btnact(count);
+        }, 2000);
+
+        document.querySelectorAll(".banner .btns span").forEach((el, idx) => {
+            el.addEventListener('click', function () {
+                clearInterval(autobackground);
+                status = false;// 이것이 중요!!!
+                toggle();
+                count = idx;
+                btnact(count);
+                // autobackground = setInterval(function () {
+                //     count++;
+                //     count %= contentnum;
+                //     btnact(count);
+                // }, 2000);
+            })
+        })
+
+        function btnact(c) {
+            //배경이미지, 버튼활성화
+            document.querySelector("#banner").style.backgroundImage = `url(img/banner_${c}.jpg)`;
+            document.querySelectorAll(".banner .btns span").forEach((el, idx) => {
+                if (c === idx) {
+                    el.classList = 'act'
+                } else {
+                    el.classList = ''
+                }
+            })
+        }
     </script>
 </body>
 
